@@ -1,0 +1,13 @@
+# Binaries and build output
+/redact
+/dist/
+
+# Go test artifacts
+*.test
+coverage.out
+
+# OS/editor
+.DS_Store
+
+# Local agent/tool output
+.firecrawl/

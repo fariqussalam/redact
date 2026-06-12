@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/alecthomas/kong"
-	"github.com/fariq/redact/internal/config"
-	"github.com/fariq/redact/internal/redactor"
+	"github.com/fariqussalam/redact/internal/config"
+	"github.com/fariqussalam/redact/internal/redactor"
 )
 
 // CLI defines the redact command-line interface.

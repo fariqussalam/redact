@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/fariq/redact/internal/config"
+	"github.com/fariqussalam/redact/internal/config"
 )
 
 func TestRedactLine(t *testing.T) {

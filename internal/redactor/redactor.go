@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fariq/redact/internal/config"
+	"github.com/fariqussalam/redact/internal/config"
 )
 
 // Redactor masks configured sensitive values in individual text lines.

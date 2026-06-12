@@ -24,12 +24,10 @@ archives:
   - id: default
     ids:
       - redact
-    formats:
-      - tar.gz
+    format: tar.gz
     format_overrides:
       - goos: windows
-        formats:
-          - zip
+        format: zip
     name_template: >-
       {{ .ProjectName }}_
       {{- .Version }}_

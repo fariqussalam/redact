@@ -19,11 +19,35 @@ x-api-key: ***
 
 ## Install
 
+### Prebuilt binary (no Go required)
+
+Download the latest release for your platform from [GitHub Releases](https://github.com/fariqussalam/redact/releases/latest):
+
 ```sh
-go install github.com/fariq/redact/cmd/redact@latest
+# macOS (ARM)
+curl -sL https://github.com/fariqussalam/redact/releases/latest/download/redact_darwin_arm64.tar.gz \
+  | tar xz -C /usr/local/bin redact
+
+# macOS (Intel)
+curl -sL https://github.com/fariqussalam/redact/releases/latest/download/redact_darwin_amd64.tar.gz \
+  | tar xz -C /usr/local/bin redact
+
+# Linux (x86_64)
+curl -sL https://github.com/fariqussalam/redact/releases/latest/download/redact_linux_amd64.tar.gz \
+  | tar xz -C /usr/local/bin redact
 ```
 
-After tagged releases are available, prebuilt binaries will be published on GitHub Releases.
+### Via Go (requires Go)
+
+```sh
+go install github.com/fariqussalam/redact/cmd/redact@latest
+```
+
+Make sure `~/go/bin` is on your `PATH`. Add this to `~/.zshrc` or `~/.bashrc` if not already present:
+
+```sh
+export PATH="$HOME/go/bin:$PATH"
+```
 
 ## Usage
 

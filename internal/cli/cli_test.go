@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/fariq/redact/internal/config"
-	"github.com/fariq/redact/internal/redactor"
+	"github.com/fariqussalam/redact/internal/config"
+	"github.com/fariqussalam/redact/internal/redactor"
 )
 
 func TestFirstCommand(t *testing.T) {

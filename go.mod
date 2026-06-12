@@ -1,4 +1,4 @@
-module github.com/fariq/redact
+module github.com/fariqussalam/redact
 
 go 1.24.6
 

@@ -19,9 +19,17 @@ x-api-key: ***
 
 ## Install
 
-### Prebuilt binary (no Go required)
+### Recommended — one-liner (no Go required)
 
-Download the latest release for your platform from [GitHub Releases](https://github.com/fariqussalam/redact/releases/latest):
+```sh
+curl -fsSL https://raw.githubusercontent.com/fariqussalam/redact/main/install.sh | sh
+```
+
+Detects your OS and architecture, downloads the latest release, verifies its checksum, and installs `redact` to `/usr/local/bin`.
+
+### Manual download
+
+Download the prebuilt binary for your platform from [GitHub Releases](https://github.com/fariqussalam/redact/releases/latest):
 
 ```sh
 # macOS (ARM)

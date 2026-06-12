@@ -1,6 +1,6 @@
 # redact
 
-CLI to redact / strip / mask sensitive data from your test.
+CLI to redact / strip / mask sensitive data from your text.
 
 `redact` stores rule names like `authorization` and `access_token` and apply masking to its values.
 

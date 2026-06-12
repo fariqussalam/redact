@@ -62,6 +62,10 @@ latest_tag() {
 	echo "$tag"
 }
 
+strip_v() {
+	printf '%s' "$1" | sed 's/^v//'
+}
+
 main() {
 	os=$(detect_os)
 	arch=$(detect_arch)
@@ -72,8 +76,8 @@ main() {
 	tag=$(latest_tag)
 	echo "  Detected: $os/$arch"
 	echo "  Release:  $tag"
-
-	archive="${BINARY}_${tag}_${os}_${arch}.tar.gz"
+	version=$(strip_v "$tag")
+	archive="${BINARY}_${version}_${os}_${arch}.tar.gz"
 	archive_url="https://github.com/$REPO/releases/download/$tag/$archive"
 	checksums_url="https://github.com/$REPO/releases/download/$tag/checksums.txt"
 
@@ -84,13 +88,13 @@ main() {
 	# Download archive
 	echo "  Downloading $archive ..."
 	download "$archive_url" archive.tar.gz
-
-	# Verify SHA-256 checksum if checksums.txt is available
 	set +e
-	expected=$(fetch "$checksums_url" 2>/dev/null | grep "^[0-9a-f]\{64\}\s\+$archive" | awk '{print $1}')
+	expected=$(fetch "$checksums_url" 2>/dev/null \
+		| grep -F "$archive" \
+		| awk '{print $1}')
 	set -e
 	if [ -n "$expected" ]; then
-		actual=$(sha256sum archive.tar.gz 2>/dev/null || shasum -a 256 archive.tar.gz | awk '{print $1}')
+		actual=$(sha256sum archive.tar.gz 2>/dev/null | awk '{print $1}' || shasum -a 256 archive.tar.gz | awk '{print $1}')
 		if [ "$expected" != "$actual" ]; then
 			fatal "checksum mismatch for $archive"
 		fi
@@ -100,18 +104,21 @@ main() {
 	# Extract
 	tar xzf archive.tar.gz || fatal "could not extract archive"
 
-	# Determine install directory
 	if [ -n "${REDACT_INSTALL_DIR:-}" ]; then
 		dest="$REDACT_INSTALL_DIR"
+		mkdir -p "$dest"
 	elif [ -w /usr/local/bin ]; then
 		dest="/usr/local/bin"
-	elif echo ":$PATH:" | grep -q ":$(dirname "$HOME"/.local/bin):"; then
+	elif [ -d "$HOME/.local/bin" ] && [ -w "$HOME/.local/bin" ]; then
 		dest="$HOME/.local/bin"
-		mkdir -p "$dest"
-	elif echo ":$PATH:" | grep -q ":$(dirname "$HOME"/go/bin):"; then
+	elif [ -d "$HOME/go/bin" ] && [ -w "$HOME/go/bin" ]; then
 		dest="$HOME/go/bin"
+	elif mkdir -p "$HOME/.local/bin" 2>/dev/null && [ -w "$HOME/.local/bin" ]; then
+		dest="$HOME/.local/bin"
 	else
-		fatal "no writable directory on PATH; set REDACT_INSTALL_DIR and try again"
+		dest="/usr/local/bin"
+		echo "  Installing to $dest (requires sudo) ..."
+		sudo mkdir -p "$dest"
 	fi
 
 	if [ -w "$dest" ]; then

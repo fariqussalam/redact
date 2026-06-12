@@ -1,6 +1,6 @@
 #!/bin/sh
 # Install redact – the local streaming text redactor.
-# Usage: curl -fsSL https://raw.githubusercontent.com/fariqussalam/redact/main/install.sh | sh
+# Usage: curl -fsSL https://raw.githubusercontent.com/fariqussalam/redact/master/install.sh | sh
 
 set -eu
 

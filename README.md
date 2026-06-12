@@ -22,28 +22,10 @@ x-api-key: ***
 ### Recommended — one-liner (no Go required)
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/fariqussalam/redact/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/fariqussalam/redact/master/install.sh | sh
 ```
 
 Detects your OS and architecture, downloads the latest release, verifies its checksum, and installs `redact` to `/usr/local/bin`.
-
-### Manual download
-
-Download the prebuilt binary for your platform from [GitHub Releases](https://github.com/fariqussalam/redact/releases/latest):
-
-```sh
-# macOS (ARM)
-curl -sL https://github.com/fariqussalam/redact/releases/latest/download/redact_darwin_arm64.tar.gz \
-  | tar xz -C /usr/local/bin redact
-
-# macOS (Intel)
-curl -sL https://github.com/fariqussalam/redact/releases/latest/download/redact_darwin_amd64.tar.gz \
-  | tar xz -C /usr/local/bin redact
-
-# Linux (x86_64)
-curl -sL https://github.com/fariqussalam/redact/releases/latest/download/redact_linux_amd64.tar.gz \
-  | tar xz -C /usr/local/bin redact
-```
 
 ### Via Go (requires Go)
 
@@ -126,18 +108,6 @@ Current v1 scope supports common same-line text forms:
 - JSON-ish `"field": "value"`
 - URL query params
 - Authorization headers as whole values
-
-Out of scope for v1:
-
-- PII detection
-- Storing secret values
-- PDFs/images/binaries
-- Multiline JSON parsing
-- Shell flag parsing
-- In-place file editing
-- Telemetry
-- Arbitrary whole-line regex replacement
-
 ## Development
 
 ```sh

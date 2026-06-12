@@ -1,8 +1,8 @@
 # redact
 
-Local streaming text redactor for developers. Pipe command output through `redact` before sharing logs with people or AI tools.
+CLI to redact / strip / mask sensitive data from your test.
 
-`redact` stores rule names like `authorization` and `access_token`, not your secret values. It makes no network requests.
+`redact` stores rule names like `authorization` and `access_token` and apply masking to its values.
 
 ```sh
 curl -v https://api.example.com \
@@ -19,15 +19,13 @@ x-api-key: ***
 
 ## Install
 
-### Recommended — one-liner (no Go required)
+### one-liner
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/fariqussalam/redact/master/install.sh | sh
 ```
 
-Detects your OS and architecture, downloads the latest release, verifies its checksum, and installs `redact` to `/usr/local/bin`.
-
-### Via Go (requires Go)
+### Via Go
 
 ```sh
 go install github.com/fariqussalam/redact/cmd/redact@latest
@@ -57,8 +55,6 @@ redact list --defaults
 redact config-path
 ```
 
-If stdin is a terminal, `redact` prints help. If stdin is piped, it redacts stdin to stdout.
-
 ## Config
 
 Print the config path:
@@ -78,8 +74,6 @@ patterns: []
 
 Rules are matched case-insensitively. `names` apply to both field-like syntax (`password=...`, `Authorization: ...`) and URL query params (`?password=...`). `patterns` are regex substring matches against detected field or URL parameter names only.
 
-Config files are stored with owner-only permissions when `redact` writes them.
-
 ## Security model
 
 `redact` is a local, best-effort filter for same-line text logs.
@@ -95,7 +89,6 @@ It does not:
 - Make network requests.
 - Store secret values.
 - Learn from your logs.
-- Guarantee every possible secret format is detected.
 
 Always review redacted output before sharing sensitive logs publicly.
 
@@ -109,12 +102,6 @@ Current v1 scope supports common same-line text forms:
 - URL query params
 - Authorization headers as whole values
 ## Development
-
-```sh
-go test ./...
-go test -race ./...
-go vet ./...
-```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
